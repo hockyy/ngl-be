@@ -7,6 +7,7 @@ from starlette.middleware.cors import CORSMiddleware
 from starlette.responses import JSONResponse
 import requests
 import json
+import uvicorn
 import os
 from datetime import datetime
 
@@ -51,3 +52,9 @@ async def send_msg(request: Request):
         return JSONResponse({"message": "200"})
     except:
         return JSONResponse({"message": "500"})
+
+
+
+if __name__ == "__main__":
+  uvicorn.run("main:app", host="0.0.0.0", port=8080, log_level="info",
+              reload=True)
