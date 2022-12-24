@@ -37,6 +37,11 @@ app.add_middleware(
   allow_headers=["*"],
 )
 
+
+@app.get("/")
+async def check(request: Request):
+    return JSONResponse({"message": "200"})
+
 @app.post("/")
 async def send_msg(request: Request):
     try:
