@@ -1,3 +1,4 @@
+from glob import glob
 from typing import Optional
 
 from starlette.config import Config
@@ -10,6 +11,9 @@ import json
 import uvicorn
 import os
 from datetime import datetime
+import json
+import ast
+
 
 from starlette.middleware.sessions import SessionMiddleware
 from starlette.requests import Request
@@ -58,6 +62,20 @@ async def send_msg(request: Request):
     except:
         return JSONResponse({"message": "500"})
 
+
+@app.get("/asdasd")
+async def send_msg(request: Request):
+    try:
+        res = []
+        for tmp in glob('output/**.txt'):
+            with open(tmp, "r") as buffer:
+                content = buffer.readline()
+                content = ast.literal_eval(content)
+                res.append(content)
+        return JSONResponse({"message": res})
+    except Exception as e:
+        print(e)
+        return JSONResponse({"message": "500"})
 
 
 if __name__ == "__main__":
